@@ -1,8 +1,6 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AccountTest {
 
@@ -16,17 +14,17 @@ public class AccountTest {
     public static final Double checkingAccountApr = 3.0;
 
     public static final Double savingsAccountBalance = 0.0;
-    public static final Integer checkingAccountBalance = 0;
+    public static final Double checkingAccountBalance = 0.0;
 
 
     @Test
-    public void checking_account_has_id(){
+    public void checking_account_has_id() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
-        assertEquals(savingsAccountID, checkingAccount.getID());
+        assertEquals(checkingAccountID, checkingAccount.getID());
     }
 
     @Test
-    public void savings_account_has_id(){
+    public void savings_account_has_id() {
         Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
         assertEquals(savingsAccountID, savingsAccount.getID());
     }
@@ -38,14 +36,14 @@ public class AccountTest {
     }
 
     @Test
-    public void checking_account_has_no_balance(){
+    public void checking_account_has_no_balance() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
         assertEquals(checkingAccountBalance, checkingAccount.getAccountBalance());
 
     }
 
     @Test
-    public void savings_account_has_no_balance(){
+    public void savings_account_has_no_balance() {
         Account savingsAccount = Account.savingsAccount(checkingAccountID, checkingAccountApr);
         assertEquals(savingsAccountBalance, savingsAccount.getAccountBalance());
 
@@ -53,14 +51,15 @@ public class AccountTest {
 
 
     @Test
-    public void deposit_into_checking_account(){
+    public void deposit_into_checking_account() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
         Double oldBalance = checkingAccount.getAccountBalance();
         checkingAccount.deposit(100.00);
         assertEquals(oldBalance + 100.00, checkingAccount.getAccountBalance());
     }
+
     @Test
-    public void deposit_twice_into_checking_account(){
+    public void deposit_twice_into_checking_account() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
         Double oldBalance = checkingAccount.getAccountBalance();
         checkingAccount.deposit(100.00);
@@ -69,7 +68,7 @@ public class AccountTest {
     }
 
     @Test
-    public void deposit_into_savings_account_in_bank(){
+    public void deposit_into_savings_account_in_bank() {
         Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
         Double oldBalance = savingsAccount.getAccountBalance();
         savingsAccount.deposit(100.00);
@@ -77,7 +76,7 @@ public class AccountTest {
     }
 
     @Test
-    public void deposit_twice_into_savings_account_in_bank(){
+    public void deposit_twice_into_savings_account_in_bank() {
         Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
         Double oldBalance = savingsAccount.getAccountBalance();
         savingsAccount.deposit(100.00);
@@ -87,7 +86,7 @@ public class AccountTest {
 
 
     @Test
-    public void withdraw_from_checking_account(){
+    public void withdraw_from_checking_account() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
         checkingAccount.deposit(300.00);
         Double oldBalance = checkingAccount.getAccountBalance();
@@ -96,7 +95,7 @@ public class AccountTest {
     }
 
     @Test
-    public void withdraw_twice_from_checking_account(){
+    public void withdraw_twice_from_checking_account() {
         Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
         checkingAccount.deposit(300.00);
         Double oldBalance = checkingAccount.getAccountBalance();
@@ -106,15 +105,16 @@ public class AccountTest {
     }
 
     @Test
-    public void withdraw_from_savings_account(){
+    public void withdraw_from_savings_account() {
         Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
         savingsAccount.deposit(100.00);
         Double oldBalance = savingsAccount.getAccountBalance();
         savingsAccount.withdraw(100.00);
         assertEquals(oldBalance - 100.00, savingsAccount.getAccountBalance());
     }
+
     @Test
-    public void withdraw_twice_from_savings_account(){
+    public void withdraw_twice_from_savings_account() {
         Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
         savingsAccount.deposit(300.00);
         Double oldBalance = savingsAccount.getAccountBalance();
@@ -124,7 +124,7 @@ public class AccountTest {
     }
 
     @Test
-    public void withdraw_from_cd_account(){
+    public void withdraw_from_cd_account() {
         Account cdAccount = Account.cdAccount(cdAccountID, cdAccountApr, 1000);
         Double oldBalance = cdAccount.getAccountBalance();
         cdAccount.withdraw(100.00);
@@ -132,7 +132,7 @@ public class AccountTest {
     }
 
     @Test
-    public void withdraw_twice_from_cd_account(){
+    public void withdraw_twice_from_cd_account() {
         Account cdAccount = Account.cdAccount(cdAccountID, cdAccountApr, 1000);
         Double oldBalance = cdAccount.getAccountBalance();
         cdAccount.withdraw(100.00);
