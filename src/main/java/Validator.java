@@ -60,7 +60,6 @@ public class Validator {
         if (parts.length < 2) {
             return false;
         }
-
         String accountType = "";
         if (accountType.equalsIgnoreCase("checking") ||
                 accountType.equalsIgnoreCase("savings")) {
@@ -101,6 +100,9 @@ public class Validator {
             if (x == (int) x) {
                 return false;
             }
+            if (x < 0) {
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -114,8 +116,6 @@ public class Validator {
             return false;
         }
     }
-
-
 }
 
 

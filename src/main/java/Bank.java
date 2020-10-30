@@ -12,7 +12,6 @@ public class Bank {
         return accounts.get(id);
     }
 
-
     public int getNumberOfAccounts() {
         return accounts.size();
     }

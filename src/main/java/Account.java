@@ -15,7 +15,7 @@ public abstract class Account {
         this.id = id;
         this.apr = apr;
         this.balance = balance;
-        this.type = "cd";
+
     }
 
     public static CheckingAccount checkingAccount(int id, double apr) {
@@ -30,9 +30,6 @@ public abstract class Account {
         return new CdAccount(id, apr, balance);
     }
 
-    public String getType() {
-        return type;
-    }
 
     public Integer getID() {
         return id;
