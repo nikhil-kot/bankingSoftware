@@ -2,6 +2,7 @@ public abstract class Account {
     private static Double balance;
     protected Integer id;
     protected Double apr;
+    protected String type;
 
     public Account(Integer id, Double apr) {
         this.id = id;
@@ -14,6 +15,7 @@ public abstract class Account {
         this.id = id;
         this.apr = apr;
         this.balance = balance;
+        this.type = "cd";
     }
 
     public static CheckingAccount checkingAccount(int id, double apr) {
@@ -26,6 +28,10 @@ public abstract class Account {
 
     public static CdAccount cdAccount(int id, double apr, double balance) {
         return new CdAccount(id, apr, balance);
+    }
+
+    public String getType() {
+        return type;
     }
 
     public Integer getID() {

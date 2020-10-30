@@ -1,31 +1,10 @@
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class BankTest {
+public class BankTest extends BaseTest {
 
-    public static final Integer savingsAccountID = 12345678;
-    public static final Integer cdAccountID = 23456789;
-    public static final Integer checkingAccountID = 34567899;
-
-    public static final Double savingsAccountApr = 1.0;
-    public static final Double cdAccountApr = 2.0;
-    public static final Double checkingAccountApr = 3.0;
-
-    public static final Double savingsAccountBalance = 0.0;
-    public static final Integer cdAccountBalance = 2000;
-    public static final Double checkingAccountBalance = 0.0;
-
-    Bank bank;
-
-    @BeforeEach
-    void beforeEach() {
-        bank = new Bank();
-        bank.addAccount(Account.savingsAccount(savingsAccountID, savingsAccountApr));
-        bank.addAccount(Account.cdAccount(cdAccountID, cdAccountApr, cdAccountBalance));
-        bank.addAccount(Account.checkingAccount(checkingAccountID, checkingAccountApr));
-    }
 
     @Test
     void bank_has_no_accounts_initially() {
@@ -105,34 +84,33 @@ public class BankTest {
     }
 
 
-
     @Test
     void withdraw_more_than_amount_in_savings_account_return_zero() {
-        bank.makeWithdrawal(savingsAccountID, 200.00 );
+        bank.makeWithdrawal(savingsAccountID, 200.00);
         assertEquals(0, bank.getAccountBalance(savingsAccountID));
 
     }
 
     @Test
     void withdraw_more_than_amount_in_checking_account_return_zero() {
-        bank.makeWithdrawal(checkingAccountID, 200.00 );
+        bank.makeWithdrawal(checkingAccountID, 200.00);
         assertEquals(0, bank.getAccountBalance(checkingAccountID));
 
     }
 
     @Test
-    void verify_apr_from_bank_for_checking(){
+    void verify_apr_from_bank_for_checking() {
         assertEquals(checkingAccountBalance, bank.getAccountBalance(checkingAccountID));
         assertEquals(checkingAccountApr, bank.getAccount(checkingAccountID).getApr());
 
     }
+
     @Test
-    void verify_apr_from_bank_for_savings(){
+    void verify_apr_from_bank_for_savings() {
         assertEquals(savingsAccountBalance, bank.getAccountBalance(savingsAccountID));
         assertEquals(savingsAccountApr, bank.getAccount(savingsAccountID).getApr());
 
     }
-
 
 
 }
