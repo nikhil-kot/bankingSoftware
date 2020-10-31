@@ -1,7 +1,7 @@
 public abstract class Account {
+    protected static Double apr;
     private static Double balance;
     protected Integer id;
-    protected Double apr;
     protected String type;
 
     public Account(Integer id, Double apr) {
@@ -18,7 +18,7 @@ public abstract class Account {
 
     }
 
-    public static CheckingAccount checkingAccount(int id, double apr) {
+    public static CheckingAccount checkingAccount(int id, Double checkingAccountApr) {
         return new CheckingAccount(id, apr);
     }
 
@@ -56,6 +56,18 @@ public abstract class Account {
             balance = balance - withdraw_amount;
             return balance;
         }
+    }
+
+    public boolean isCheckingAccount() {
+        return false;
+    }
+
+    public boolean isSavingsAccount() {
+        return false;
+    }
+
+    public boolean isCdAccount() {
+        return false;
     }
 }
 

@@ -5,6 +5,7 @@ public class Validator {
         this.bank = bank;
     }
 
+
     public boolean isValid(String input) {
         String action = input.split("\\s")[0];
 
@@ -16,8 +17,6 @@ public class Validator {
 
         } else {
 
-            //invalid action
-            System.out.println("Invalid action " + action);
             return false;
         }
     }
@@ -60,23 +59,30 @@ public class Validator {
         if (parts.length < 2) {
             return false;
         }
-        String accountType = "";
-        if (accountType.equalsIgnoreCase("checking") ||
-                accountType.equalsIgnoreCase("savings")) {
+        String id = parts[2];
+        if (!isIdValid(id)) {
+            return false;
+        }
+
+//        if (CheckingAccount.class.isInstance(bank.getAccount(Integer.parseInt(id))) ||
+//                SavingsAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
+
+        if (bank.getAccount(Integer.parseInt(id)).isCheckingAccount() ||
+                bank.getAccount(Integer.parseInt(id)).isSavingsAccount()) {
+
             if (parts.length != 3) {
                 return false;
             }
-            String id = parts[2];
             String depositAmount = parts[3];
             if (isIdValid(id)) {
-                if (accountType == "checking") {
-                    if (Integer.parseInt(depositAmount) > 1000 || Integer.parseInt(depositAmount) < 0) {
+                if (CheckingAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
+                    if (isAmountValid(depositAmount) && Integer.parseInt(depositAmount) <= 1000 && Integer.parseInt(depositAmount) > 0) {
                         return true;
                     } else {
                         return false;
                     }
-                } else if (accountType == "savings") {
-                    if (Integer.parseInt(depositAmount) > 2500 || Integer.parseInt(depositAmount) < 0) {
+                } else if (SavingsAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
+                    if (isAmountValid(depositAmount) && Integer.parseInt(depositAmount) <= 2500 && Integer.parseInt(depositAmount) > 0) {
                         return true;
                     } else {
                         return false;

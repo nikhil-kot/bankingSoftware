@@ -115,6 +115,31 @@ public class ValidatorTest extends BaseTest {
     }
 
     @Test
+    void deposit_into_checking() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("deposit 12222222 1000"));
+    }
+
+    @Test
+    void deposit_invalid_amount_into_checking() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("deposit 23456789 1100"));
+    }
+
+    @Test
+    void deposit_invalid_amount_into_savings() {
+        bank.addAccount(Account.savingsAccount(12222222, savingsAccountApr));
+        assertFalse(validator.isValid("deposit 23456789 2600"));
+    }
+
+    @Test
+    void deposit_negative_amount_into_checking() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("deposit 23456789 -1100"));
+    }
+
+
+    @Test
     void isIdValid() {
         assertFalse(validator.isIdValid("1234567"));
         assertFalse(validator.isIdValid("12345678"));
