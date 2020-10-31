@@ -74,8 +74,8 @@ public class ValidatorTest extends BaseTest {
 
     @Test
     void create_duplicate_savings_Account() {
-        bank.addAccount(Account.savingsAccount(savingsAccountID, savingsAccountApr));
-        assertFalse(validator.isValid("create savings 12345678 0.06"));
+        bank.addAccount(Account.savingsAccount(33333333, 0.07));
+        assertFalse(validator.isValid("create savings 33333333 0.06"));
     }
 
     @Test
@@ -99,7 +99,7 @@ public class ValidatorTest extends BaseTest {
     }
 
     @Test
-    void case_sensitive() {
+    void test_case_sensitive_for_deposit() {
         assertTrue(validator.isValid("CreatE cd 12345679 0.06 1000"));
     }
 
@@ -174,15 +174,6 @@ public class ValidatorTest extends BaseTest {
     void missing_amount_for_deposit() {
         bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
         assertFalse(validator.isValid("deposit 12222222"));
-    }
-
-    @Test
-    void isIdValid() {
-        assertFalse(validator.isIdValid("1234567"));
-        assertFalse(validator.isIdValid("12345678"));
-        assertFalse(validator.isIdValid("123456789"));
-        assertFalse(validator.isIdValid("1234567a"));
-        assertFalse(validator.isIdValid("1234567.8"));
     }
 
 }

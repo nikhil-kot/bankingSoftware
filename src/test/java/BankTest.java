@@ -100,6 +100,8 @@ public class BankTest extends BaseTest {
 
     @Test
     void verify_apr_from_bank_for_checking() {
+        Bank bank = new Bank();
+        bank.addAccount(Account.checkingAccount(checkingAccountID, checkingAccountApr));
         assertEquals(checkingAccountBalance, bank.getAccountBalance(checkingAccountID));
         assertEquals(checkingAccountApr, bank.getAccount(checkingAccountID).getApr());
 
@@ -107,6 +109,8 @@ public class BankTest extends BaseTest {
 
     @Test
     void verify_apr_from_bank_for_savings() {
+        Bank bank = new Bank();
+        bank.addAccount(Account.savingsAccount(savingsAccountID, savingsAccountApr));
         assertEquals(savingsAccountBalance, bank.getAccountBalance(savingsAccountID));
         assertEquals(savingsAccountApr, bank.getAccount(savingsAccountID).getApr());
 
