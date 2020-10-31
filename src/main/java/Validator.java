@@ -14,9 +14,7 @@ public class Validator {
 
         } else if (action.equalsIgnoreCase("deposit")) {
             return validateDepositCommand(input);
-
         } else {
-
             return false;
         }
     }
@@ -56,16 +54,14 @@ public class Validator {
 
     public boolean validateDepositCommand(String input) {
         String[] parts = input.split("\\s");
-        if (parts.length < 2) {
+        if (parts.length <= 2) {
             return false;
         }
-        String id = parts[2];
-        if (!isIdValid(id)) {
+        String id = parts[1];
+        if (!id.matches("\\d{8}") ||
+                (bank.doesAccountExist(Integer.parseInt(id)) == false)) {
             return false;
         }
-
-//        if (CheckingAccount.class.isInstance(bank.getAccount(Integer.parseInt(id))) ||
-//                SavingsAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
 
         if (bank.getAccount(Integer.parseInt(id)).isCheckingAccount() ||
                 bank.getAccount(Integer.parseInt(id)).isSavingsAccount()) {
@@ -73,8 +69,8 @@ public class Validator {
             if (parts.length != 3) {
                 return false;
             }
-            String depositAmount = parts[3];
-            if (isIdValid(id)) {
+            String depositAmount = parts[2];
+            if (id.matches("\\d{8}") && (bank.doesAccountExist(Integer.parseInt(id)) == true)) {
                 if (CheckingAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
                     if (isAmountValid(depositAmount) && Integer.parseInt(depositAmount) <= 1000 && Integer.parseInt(depositAmount) > 0) {
                         return true;

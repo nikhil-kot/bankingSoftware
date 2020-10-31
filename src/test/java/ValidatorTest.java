@@ -33,7 +33,7 @@ public class ValidatorTest extends BaseTest {
     }
 
     @Test
-    void missing_action() {
+    void missing_create_command() {
         assertFalse(validator.isValid("checking 12345679 0.07"));
     }
 
@@ -117,7 +117,7 @@ public class ValidatorTest extends BaseTest {
     @Test
     void deposit_into_checking() {
         bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
-        assertFalse(validator.isValid("deposit 12222222 1000"));
+        assertTrue(validator.isValid("deposit 12222222 1000"));
     }
 
     @Test
@@ -135,9 +135,46 @@ public class ValidatorTest extends BaseTest {
     @Test
     void deposit_negative_amount_into_checking() {
         bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
-        assertFalse(validator.isValid("deposit 23456789 -1100"));
+        assertFalse(validator.isValid("deposit 12222222 -1100"));
     }
 
+    @Test
+    void missing_deposit_command() {
+        assertFalse(validator.isValid("23456789 1000"));
+    }
+
+    @Test
+    void id_does_not_exist() {
+        assertFalse(validator.isValid("deposit 11111111 1000"));
+    }
+
+    @Test
+    void typo_in_deposit() {
+        assertFalse(validator.isValid("deposlt 23456789 1000"));
+    }
+
+    @Test
+    void test_case_insensitive_for_deposit() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertTrue(validator.isValid("Deposit 12222222 1000"));
+    }
+
+    @Test
+    void letter_in_deposit_amount() {
+        assertFalse(validator.isValid("deposit 23456789 10A0"));
+    }
+
+    @Test
+    void missing_id_for_deposit() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("deposit 1000"));
+    }
+
+    @Test
+    void missing_amount_for_deposit() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("deposit 12222222"));
+    }
 
     @Test
     void isIdValid() {
