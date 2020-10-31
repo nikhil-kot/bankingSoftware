@@ -1,12 +1,8 @@
-public class CheckingAccount extends Account {
+public class CheckingAccount extends Account{
 
-    public CheckingAccount(int id, double apr) {
+    public CheckingAccount(int id, double apr){
         super(id, apr);
 
     }
 
-    @Override
-    public boolean isCheckingAccount() {
-        return true;
-    }
 }

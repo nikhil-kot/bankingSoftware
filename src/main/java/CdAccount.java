@@ -3,8 +3,4 @@ public class CdAccount extends Account {
         super(id, apr, balance);
     }
 
-    @Override
-    public boolean isCdAccount() {
-        return true;
-    }
 }
