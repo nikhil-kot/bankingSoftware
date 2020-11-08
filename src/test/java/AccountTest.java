@@ -52,7 +52,7 @@ public class AccountTest {
 
     @Test
     public void deposit_into_checking_account() {
-        Account checkingAccount = Account.checkingAccount(checkingAccountID, checkingAccountApr);
+        Account checkingAccount = Account.checkingAccount(99999999, 0.07);
         Double oldBalance = checkingAccount.getAccountBalance();
         checkingAccount.deposit(100.00);
         assertEquals(oldBalance + 100.00, checkingAccount.getAccountBalance());

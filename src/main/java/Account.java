@@ -2,7 +2,7 @@ public abstract class Account {
     protected static Double apr;
     private static Double balance;
     protected Integer id;
-    protected String type;
+
 
     public Account(Integer id, Double apr) {
         this.id = id;
@@ -18,7 +18,7 @@ public abstract class Account {
 
     }
 
-    public static CheckingAccount checkingAccount(int id, Double checkingAccountApr) {
+    public static CheckingAccount checkingAccount(int id, double apr) {
         return new CheckingAccount(id, apr);
     }
 

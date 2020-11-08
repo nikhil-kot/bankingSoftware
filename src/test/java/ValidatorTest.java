@@ -44,7 +44,7 @@ public class ValidatorTest extends BaseTest {
 
     @Test
     void invalid_Apr() {
-        assertFalse(validator.isValid("create savings 12345679 55"));
+        assertFalse(validator.isValid("create savings 12345679 101"));
     }
 
     @Test
@@ -150,7 +150,7 @@ public class ValidatorTest extends BaseTest {
 
     @Test
     void typo_in_deposit() {
-        assertFalse(validator.isValid("deposlt 23456789 1000"));
+        assertFalse(validator.isValid("depositt 12345678 1000"));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class ValidatorTest extends BaseTest {
 
     @Test
     void letter_in_deposit_amount() {
-        assertFalse(validator.isValid("deposit 23456789 10A0"));
+        assertFalse(validator.isValid("deposit 12345678 10A0"));
     }
 
     @Test
