@@ -11,10 +11,10 @@ public class CommandProcessorTest {
 
     @Test
     void create_checking_account() {
-        commandProcessor.processInput("create checking 88888888 1.0");
-        assertEquals(88888888, bank.getAccount(88888888).getID());
-        assertEquals(1.0, bank.getAccount(88888888).getApr());
-        assertTrue(bank.getAccount(Integer.parseInt(String.valueOf(88888888))).isCheckingAccount());
+        commandProcessor.processInput("create checking 77777777 1.0");
+        assertEquals(77777777, bank.getAccount(77777777).getID());
+        assertEquals(1.0, bank.getAccount(77777777).getApr());
+        assertTrue(bank.getAccount(Integer.parseInt(String.valueOf(77777777))).isCheckingAccount());
 
     }
 
