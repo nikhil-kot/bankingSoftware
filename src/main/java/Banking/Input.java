@@ -1,3 +1,5 @@
+package Banking;
+
 public class Input {
     private String action;
     private String accountType;
