@@ -24,15 +24,15 @@ test {
 }
 
 jacocoTestReport {
-  reports {
-    xml.enabled true
-    xml.destination = project.file("builds/jacoco/jacoco.xml")
-  }
+    reports {
+        xml.enabled true
+        xml.destination = project.file("builds/jacoco/jacoco.xml")
+    }
 }
 
 pitest {
-    targetClasses = ['banking.*']
-    targetTests = ['banking.*']
+    targetClasses = ['Banking.*']
+    targetTests = ['Banking.*']
     testSourceSets = [sourceSets.test]
     mainSourceSets = [sourceSets.main]
     pitestVersion = '1.5.2'
