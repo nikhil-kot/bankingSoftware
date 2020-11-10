@@ -1,7 +1,7 @@
 include:
   - template: Code-Quality.gitlab-ci.yml
 
-image: gradle:alpine
+image: gradle:6.6.1-jdk11
 
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
@@ -33,7 +33,6 @@ code_quality:
 
 test:
   stage: test
-  image: gradle:6.6.1-jdk11
   script:
     - 'gradle test jacocoTestReport'
   artifacts:
@@ -44,7 +43,16 @@ test:
     reports:
       junit: build/test-results/test/**/TEST-*.xml
 
-
+mutation-coverage:
+  stage: test
+  script:
+    - 'gradle test pitest'
+    - 'tar -czvf build/reports/pitest.tar.gz build/reports/pitest/'
+  artifacts:
+    when: always
+    expose_as: 'Pitest Report'
+    paths:
+      - build/reports/pitest.tar.gz
 
 coverage-jdk11:
   stage: deploy
