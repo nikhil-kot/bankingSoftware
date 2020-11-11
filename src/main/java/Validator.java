@@ -1,5 +1,3 @@
-package Banking;
-
 public class Validator {
     public Bank bank;
 

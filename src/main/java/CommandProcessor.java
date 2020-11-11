@@ -1,5 +1,3 @@
-package Banking;
-
 public class CommandProcessor {
     public Bank bank;
 
