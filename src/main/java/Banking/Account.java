@@ -6,6 +6,7 @@ public abstract class Account {
     protected Integer id;
 
 
+
     public Account(Integer id, Double apr) {
         this.id = id;
         this.apr = apr;
@@ -53,7 +54,7 @@ public abstract class Account {
 
     public Double withdraw(Double withdraw_amount) {
         if (withdraw_amount > balance) {
-            return balance;
+            return 0.00;
         } else {
             balance = balance - withdraw_amount;
             return balance;

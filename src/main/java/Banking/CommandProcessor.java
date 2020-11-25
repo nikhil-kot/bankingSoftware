@@ -16,9 +16,23 @@ public class CommandProcessor {
         } else if (action.equalsIgnoreCase("deposit")) {
             DepositInAccount(input);
 
+        } else if (action.equalsIgnoreCase("withdraw")){
+            WithdrawFromAccount(input);
         }
+
         return false;
     }
+
+
+    public void WithdrawFromAccount(String input){
+        String[] parts = input.split("\\s");
+        String id = parts[1];
+        String amount = parts[2];
+        if (Integer.parseInt(amount) > 0) {
+            bank.makeWithdrawal(Integer.parseInt(id), Double.parseDouble(amount));
+        }
+    }
+
 
 
     public void CreateAccount(String input) {

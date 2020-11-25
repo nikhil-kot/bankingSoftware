@@ -47,4 +47,14 @@ public class CommandProcessorTest {
         commandProcessor.processInput("deposit 99999999 100");
         assertEquals(oldBalance + 100.00, bank.getAccountBalance(99999999));
     }
+
+    @Test
+    void withdraw_from_checking() {
+        bank.addAccount(Account.checkingAccount(99999999, 0.99));
+        commandProcessor.processInput("deposit 99999999 100");
+        commandProcessor.processInput("deposit 99999999 100");
+        Double oldBalance = bank.getAccountBalance(99999999);
+        commandProcessor.processInput("withdraw 99999999 100");
+        assertEquals(oldBalance - 100.00, bank.getAccountBalance(99999999));
+    }
 }

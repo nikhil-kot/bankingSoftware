@@ -16,12 +16,58 @@ public class Validator {
         } else if (action.equalsIgnoreCase("deposit")) {
             return validateDepositCommand(input);
 
+        } else if (action.equalsIgnoreCase("withdraw")) {
+            return validateWithdrawCommand(input);
+
+        } else if (action.equalsIgnoreCase("pass time")){
+            return validatePassTimeCommand(input);
+
         } else {
             return false;
         }
     }
 
-//    public boolean validateCommand();
+
+    public boolean validateWithdrawCommand(String input){
+        String[] parts = input.split("\\s");
+        if (parts.length <= 2) {
+            return false;
+        }
+        String id = parts[1];
+        if (!id.matches("\\d{8}") ||
+                (bank.doesAccountExist(Integer.parseInt(id)) == false)) {
+            return false;
+        }
+        if (bank.getAccount(Integer.parseInt(id)).isCheckingAccount() ||
+                bank.getAccount(Integer.parseInt(id)).isSavingsAccount()) {
+
+            if (parts.length != 3) {
+                return false;
+            }
+            String withdrawAmount = parts[2];
+            if (id.matches("\\d{8}") && (bank.doesAccountExist(Integer.parseInt(id)) == true)) {
+                if (CheckingAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
+                    if (isAmountValid(withdrawAmount) && Integer.parseInt(withdrawAmount) <= 400 && Integer.parseInt(withdrawAmount) > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else if (SavingsAccount.class.isInstance(bank.getAccount(Integer.parseInt(id)))) {
+                    if (isAmountValid(withdrawAmount) && Integer.parseInt(withdrawAmount) <= 1000 && Integer.parseInt(withdrawAmount) > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+
 
     public boolean validateDepositCommand(String input) {
         String[] parts = input.split("\\s");
@@ -60,6 +106,26 @@ public class Validator {
             }
         }
         return false;
+    }
+
+    public boolean validatePassTimeCommand(String input){
+        String[] parts = input.split("\\s");
+        if (parts.length < 2) {
+            return false;
+        }
+        String months = parts[1];
+
+        if (Integer.parseInt(months) % 1 == 0){
+            if (12 <= Integer.parseInt(months)  && Integer.parseInt(months) > 0){
+                return true;
+            }else{
+                return false;
+            }
+
+        }else {
+            return false;
+        }
+
     }
 
 
@@ -131,5 +197,6 @@ public class Validator {
         }
 
     }
+
 }
 
