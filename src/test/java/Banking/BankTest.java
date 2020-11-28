@@ -66,15 +66,15 @@ public class BankTest extends BaseTest {
         bank.makeDeposit(checkingAccountID, 200.0);
         Double oldBalance = bank.getAccountBalance(checkingAccountID);
         bank.makeWithdrawal(checkingAccountID, 100.0);
-        assertEquals(oldBalance - 100.00, bank.getAccountBalance(savingsAccountID));
+        assertEquals(oldBalance - 100.00, bank.getAccountBalance(checkingAccountID));
     }
 
     @Test
     void withdraw_money_from_savings_account_in_bank() {
         bank.makeDeposit(savingsAccountID, 200.0);
-        Double oldBalance = bank.getAccountBalance(checkingAccountID);
-        bank.makeWithdrawal(checkingAccountID, 100.0);
-        assertEquals(oldBalance - 100.00, bank.getAccountBalance(checkingAccountID));
+        Double oldBalance = bank.getAccountBalance(savingsAccountID);
+        bank.makeWithdrawal(savingsAccountID, 100.0);
+        assertEquals(oldBalance - 100.00, bank.getAccountBalance(savingsAccountID));
     }
 
     @Test

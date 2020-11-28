@@ -2,6 +2,7 @@ package Banking;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Bank {
     private Map<Integer, Account> accounts;
@@ -36,5 +37,20 @@ public class Bank {
 
     public boolean doesAccountExist(Integer id) {
         return accounts.get(id) != null;
+    }
+
+    public Set<Integer> getAllAccountIds() {
+        return accounts.keySet();
+    }
+
+    public boolean closeAccount(Integer id){
+        Account removedAccount = accounts.remove(id);
+
+        if(removedAccount!=null){
+            return true;
+        } else {
+            //account doesn't exist
+            return false;
+        }
     }
 }

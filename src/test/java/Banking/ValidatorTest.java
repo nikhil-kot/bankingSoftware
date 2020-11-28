@@ -178,4 +178,120 @@ public class ValidatorTest extends BaseTest {
         assertFalse(validator.isValid("deposit 12222222"));
     }
 
+    @Test
+    void id_does_not_exist_withdrawal() {
+        assertFalse(validator.isValid("withdraw 11111111 1000"));
+    }
+
+    @Test
+    void withdraw_negative_amount_into_checking() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("withdraw 12222222 -1100"));
+    }
+
+    @Test
+    void missing_amount_for_withdrawal() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("withdraw 12222222"));
+    }
+    @Test
+    void letter_in_withdraw_amount() {
+        assertFalse(validator.isValid("withdraw 12345678 10A0"));
+
+    }
+
+    @Test
+    void exceed_withdraw_amount_for_checking() {
+        bank.addAccount(Account.checkingAccount(12222222, checkingAccountApr));
+        assertFalse(validator.isValid("withdraw 12222222 1000"));
+    }
+
+    @Test
+    void typo_in_withdraw() {
+        assertFalse(validator.isValid("withdraww 12345678 1000"));
+    }
+
+
+    @Test
+    void exceed_withdraw_amount_for_savings() {
+        bank.addAccount(Account.checkingAccount(12222223, 0.06));
+        assertFalse(validator.isValid("withdraw 12222223 2000"));
+    }
+
+    @Test
+    void test_case_insensitive_for_withdraw() {
+        bank.addAccount(Account.checkingAccount(12222223, 0.06));
+        assertTrue(validator.isValid("WIThdraw 12222223 100"));
+    }
+
+
+    @Test
+    void normal_pass() {
+        assertTrue(validator.isValid("pass 1"));
+    }
+
+    @Test
+    void typo_in_pass() {
+        assertFalse(validator.isValid("passs 1"));
+    }
+
+    @Test
+    void no_months_for_pass() {
+        assertFalse(validator.isValid("pass"));
+    }
+    @Test
+    void zero_months_for_pass() {
+        assertFalse(validator.isValid("pass 0"));
+    }
+
+    @Test
+    void letter_in_months_for_pass() {
+        assertFalse(validator.isValid("pass n"));
+    }
+
+    @Test
+    void transfer_amount_too_high(){
+        bank.addAccount(Account.checkingAccount(10000000, 0.06));
+        bank.addAccount(Account.checkingAccount(20000000, 0.06));
+        bank.makeDeposit(10000000, 1000.00);
+        assertFalse(validator.isValid("transfer 10000000 20000000 500"));
+    }
+
+
+    @Test
+    void transfer_account_does_not_exist(){
+        bank.addAccount(Account.checkingAccount(10000000, 0.06));
+        bank.makeDeposit(10000000, 1000.00);
+        assertFalse(validator.isValid("transfer 10000000 20000000 400"));
+    }
+
+    @Test
+    void typo_in_transfer(){
+        bank.addAccount(Account.checkingAccount(10000000, 0.06));
+        bank.addAccount(Account.checkingAccount(20000000, 0.06));
+        bank.makeDeposit(10000000, 1000.00);
+        assertFalse(validator.isValid("transferr 10000000 20000000 500"));
+    }
+
+    @Test
+    void transfer_amount_negative(){
+        bank.addAccount(Account.checkingAccount(10000000, 0.06));
+        bank.addAccount(Account.checkingAccount(20000000, 0.06));
+        bank.makeDeposit(10000000, 1000.00);
+        assertFalse(validator.isValid("transfer 10000000 20000000 -500"));
+    }
+
+    @Test
+    void letter_in_transfer_amount_negative(){
+        bank.addAccount(Account.checkingAccount(10000000, 0.06));
+        bank.addAccount(Account.checkingAccount(20000000, 0.06));
+        bank.makeDeposit(10000000, 1000.00);
+        assertFalse(validator.isValid("transfer 10000000 20000000 5N0"));
+    }
+
+
+
+
+
+
 }

@@ -115,15 +115,6 @@ public class AccountTest {
         assertEquals(oldBalance - 100.00, savingsAccount.getAccountBalance());
     }
 
-    @Test
-    public void withdraw_twice_from_savings_account() {
-        Account savingsAccount = Account.savingsAccount(savingsAccountID, savingsAccountApr);
-        savingsAccount.deposit(300.00);
-        Double oldBalance = savingsAccount.getAccountBalance();
-        savingsAccount.withdraw(100.00);
-        savingsAccount.withdraw(100.00);
-        assertEquals(oldBalance - 200.00, savingsAccount.getAccountBalance());
-    }
 
     @Test
     public void withdraw_from_cd_account() {

@@ -2,8 +2,7 @@ package Banking;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CommandProcessorTest {
     Bank bank = new Bank();
@@ -57,4 +56,62 @@ public class CommandProcessorTest {
         commandProcessor.processInput("withdraw 99999999 100");
         assertEquals(oldBalance - 100.00, bank.getAccountBalance(99999999));
     }
+
+
+    @Test
+    void accrue_interest(){
+        bank.addAccount(Account.checkingAccount(99999999, 0.6));
+        bank.addAccount(Account.cdAccount(88888888, 0.6,5000));
+        bank.makeDeposit(99999999, 5000.00);
+        commandProcessor.processInput("pass 12");
+        assertEquals(5030.08, bank.getAccountBalance(99999999));
+        assertEquals(5121.42, bank.getAccountBalance(88888888));
+    }
+
+    @Test
+    void transfer_from_checking_to_checking(){
+        bank.addAccount(Account.checkingAccount(99999999, 0.6));
+        bank.addAccount(Account.checkingAccount(11111111, 0.6));
+        commandProcessor.processInput("deposit 99999999 1000");
+        Double oldChecking9 = bank.getAccountBalance(99999999);
+        Double oldChecking1 = bank.getAccountBalance(11111111);
+        commandProcessor.processInput("transfer 99999999 11111111 200");
+        assertEquals(oldChecking9 - 200, bank.getAccountBalance(99999999));
+        assertEquals(oldChecking1 + 200, bank.getAccountBalance(11111111));
+    }
+
+
+    @Test
+    void deduct_money_from_account(){
+        bank.addAccount(Account.checkingAccount(99999999, 0.6));
+        bank.makeDeposit(99999999, 90.00);
+        Double oldChecking9 = bank.getAccountBalance(99999999);
+        commandProcessor.processInput("pass 1");
+        assertEquals(65.03, bank.getAccountBalance(99999999));
+    }
+
+    @Test
+    void deduct_money_from_account_until_zero(){
+        bank.addAccount(Account.checkingAccount(99999999, 0.6));
+        bank.makeDeposit(99999999, 90.00);
+        commandProcessor.processInput("pass 4");
+        assertEquals(0, bank.getAccountBalance(99999999));
+    }
+
+    @Test
+    void deduct_money_from_account_until_zero_and_remove(){
+        bank.addAccount(Account.checkingAccount(99999999, 0.6));
+        bank.makeDeposit(99999999, 90.00);
+        commandProcessor.processInput("pass 5");
+        assertFalse(bank.doesAccountExist(99999999));
+    }
+
+
+
+
+
+
+
+
+
 }

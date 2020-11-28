@@ -1,10 +1,12 @@
 package Banking;
 
-public abstract class Account {
-    protected static Double apr;
-    private static Double balance;
-    protected Integer id;
+import java.text.DecimalFormat;
 
+public abstract class Account {
+    protected Double apr;
+    protected Double balance;
+    protected Integer id;
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
 
     public Account(Integer id, Double apr) {
@@ -43,7 +45,8 @@ public abstract class Account {
     }
 
     public Double getAccountBalance() {
-        return balance;
+        return Double.parseDouble(df.format(balance));
+
     }
 
     public Double deposit(Double deposit_amount) {
@@ -61,6 +64,20 @@ public abstract class Account {
         }
     }
 
+    public void deduct(Double fee) {
+        if( balance < fee){
+            balance = 0.0;
+        } else {
+            balance = balance - fee;
+        }
+    }
+    public void passMonths(int months){
+    }
+
+    public boolean isWithDrawalAllowed(){
+        return true;
+    }
+
     public boolean isCheckingAccount() {
         return false;
     }
@@ -72,6 +89,8 @@ public abstract class Account {
     public boolean isCdAccount() {
         return false;
     }
+
+    public abstract void addInterestToBalance();
 }
 
 
