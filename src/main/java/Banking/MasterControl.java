@@ -36,7 +36,7 @@ public class MasterControl {
 
         for (Integer Id : AccountIDs){
 
-            //current state of the account
+
             Account account = bank.getAccount(Id);
             String currentState = account.getType() + " "  + Id + " " + df.format(account.getAccountBalance())
                     + " " + df.format(account.getApr());
@@ -51,6 +51,6 @@ public class MasterControl {
         output.addAll(storage.getInvalidCommands());
         return output;
 
-//        return storage.getInvalidCommands();
+
     }
 }
