@@ -1,8 +1,9 @@
 package Banking;
 
 public class CdAccount extends Account {
-    private int time;
+    private int time = 0;
     private boolean allowWithdrawal = false;
+
 
     public CdAccount(int id, double apr, double balance) {
         super(id, apr, balance);
@@ -24,7 +25,6 @@ public class CdAccount extends Account {
 
     }
     public void passMonths(int months){
-        time = 0;
         time += months;
         if (time >= 12){
             this.allowWithdrawal=true;
@@ -33,5 +33,9 @@ public class CdAccount extends Account {
 
     public boolean isWithDrawalAllowed(){
         return this.allowWithdrawal;
+    }
+
+    public String getType(){
+        return "Cd";
     }
 }

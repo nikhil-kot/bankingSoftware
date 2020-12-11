@@ -51,20 +51,8 @@ public class Validator {
             String transferAmount = parts[3];
             if (fromId.matches("\\d{8}") && (bank.doesAccountExist(Integer.parseInt(fromId)) == true) &&
                     toId.matches("\\d{8}") && (bank.doesAccountExist(Integer.parseInt(toId)) == true)) {
-                if (bank.getAccount(Integer.parseInt(toId)) instanceof CdAccount) {
+                if (bank.getAccount(Integer.parseInt(toId)) instanceof CdAccount || bank.getAccount(Integer.parseInt(fromId)) instanceof CdAccount ) {
                     return false;
-
-                } else if (bank.getAccount(Integer.parseInt(fromId)) instanceof CdAccount && !bank.getAccount(Integer.parseInt(fromId)).isWithDrawalAllowed()){
-                    return false;
-
-                } else if (bank.getAccount(Integer.parseInt(fromId)) instanceof CdAccount && bank.getAccount(Integer.parseInt(fromId)).isWithDrawalAllowed()
-                        && bank.getAccount(Integer.parseInt(toId)) instanceof SavingsAccount){
-                    if (isNumeric(transferAmount) && (Double.parseDouble(transferAmount) == bank.getAccountBalance(Integer.parseInt(fromId)))
-                            && bank.getAccount(Integer.parseInt(fromId)).isWithDrawalAllowed()) {
-                        return true;
-                    } else {
-                        return false;
-                    }
 
                 } else if (bank.getAccount(Integer.parseInt(fromId)) instanceof CheckingAccount && bank.getAccount(Integer.parseInt(toId)) instanceof CheckingAccount) {
                     if (isNumeric(transferAmount) && Double.parseDouble(transferAmount) <= 400 && Double.parseDouble(transferAmount) >= 0) {

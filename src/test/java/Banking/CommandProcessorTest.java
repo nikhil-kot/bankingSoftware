@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CommandProcessorTest {
     Bank bank = new Bank();
-    CommandProcessor commandProcessor = new CommandProcessor(bank);
+    Storage storage = new Storage();
+    CommandProcessor commandProcessor = new CommandProcessor(bank, storage);
 
     @Test
     void create_checking_account() {
@@ -78,6 +79,17 @@ public class CommandProcessorTest {
         commandProcessor.processInput("transfer 99999999 11111111 200");
         assertEquals(oldChecking9 - 200, bank.getAccountBalance(99999999));
         assertEquals(oldChecking1 + 200, bank.getAccountBalance(11111111));
+    }
+
+    @Test
+    void transfer_from_cd_to_checking(){
+        bank.addAccount(Account.cdAccount(99999999, 1.2, 1000));
+        bank.addAccount(Account.checkingAccount(11111111, 1.2));
+        commandProcessor.processInput("deposit 11111111 1000");
+        commandProcessor.processInput("pass 12");
+        commandProcessor.processInput("transfer 99999999 11111111 1049.15");
+        assertEquals(0, bank.getAccountBalance(99999999));
+        assertEquals(2061.22, bank.getAccountBalance(11111111));
     }
 
 

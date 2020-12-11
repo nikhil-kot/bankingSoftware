@@ -40,4 +40,8 @@ public class SavingsAccount extends Account {
     public boolean isWithDrawalAllowed(){
         return this.allowWithdrawal;
     }
+
+    public String getType(){
+        return "Savings";
+    }
 }

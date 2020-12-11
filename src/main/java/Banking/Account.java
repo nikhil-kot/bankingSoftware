@@ -1,12 +1,18 @@
 package Banking;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+
+import static java.lang.Math.floor;
+
 
 public abstract class Account {
     protected Double apr;
     protected Double balance;
     protected Integer id;
-    private static DecimalFormat df = new DecimalFormat("0.00");
+    DecimalFormat df = new DecimalFormat("0.00");
+
+
 
 
     public Account(Integer id, Double apr) {
@@ -41,8 +47,9 @@ public abstract class Account {
     }
 
     public Double getApr() {
-        return apr;
+        return Double.parseDouble(df.format(apr));
     }
+
 
     public Double getAccountBalance() {
         return Double.parseDouble(df.format(balance));
@@ -56,8 +63,9 @@ public abstract class Account {
     }
 
     public Double withdraw(Double withdraw_amount) {
-        if (withdraw_amount > balance) {
-            return 0.00;
+        if (withdraw_amount >= balance) {
+            balance = 0.00;
+            return balance;
         } else {
             balance = balance - withdraw_amount;
             return balance;
@@ -91,6 +99,9 @@ public abstract class Account {
     }
 
     public abstract void addInterestToBalance();
+
+    public abstract String getType();
+
 }
 
 

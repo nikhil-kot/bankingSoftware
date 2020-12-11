@@ -1,6 +1,7 @@
 package Banking;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ public class Bank {
     private Map<Integer, Account> accounts;
 
     Bank() {
-        accounts = new HashMap<>();
+        accounts = new LinkedHashMap<>();
     }
 
     public Account getAccount(Integer id) {
